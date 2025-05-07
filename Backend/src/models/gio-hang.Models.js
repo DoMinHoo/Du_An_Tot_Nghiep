@@ -1,39 +1,32 @@
-const mongoose = require("mongoose");
+    const mongoose = require("mongoose");
 
-const cartItemSchema = new mongoose.Schema({
+    const cartItemSchema = new mongoose.Schema({
     product_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Product", // hoặc tên bảng sản phẩm của bạn
-        required: true
+        ref: "Product",
+        required: true,
     },
     quantity: {
         type: Number,
         required: true,
-        min: 1
-    }
-}, { _id: false }); // không cần _id riêng cho từng cart item
+        min: 1,
+    },
+    added_price: Number, // giá tại thời điểm thêm vào
+    }, { _id: false });
 
-const gioHangSchema = new mongoose.Schema({
+    const cartSchema = new mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Users", // bảng người dùng
-        required: true
+        ref: "Users",
+        required: true,
+        unique: true, // 1 user chỉ có 1 giỏ
     },
     cart_items: {
         type: [cartItemSchema],
-        required: true,
-        default: []
+        default: [],
     },
-    created_at: {
-        type: Date,
-        default: Date.now
-    },
-    updated_at: {
-        type: Date,
-        default: Date.now
-    }
-}, {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
-});
+    }, {
+    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
+    });
 
-module.exports = mongoose.model("Cart", gioHangSchema);
+    module.exports = mongoose.model("Cart", cartSchema);

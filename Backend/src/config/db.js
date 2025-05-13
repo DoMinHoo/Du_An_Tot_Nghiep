@@ -8,4 +8,4 @@ export default async function connectMongoDB(dbUrl) {
     } catch (error) {
         console.log("Connect failure!!!");
     }
-}
+}   

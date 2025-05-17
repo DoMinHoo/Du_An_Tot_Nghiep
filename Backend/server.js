@@ -18,7 +18,7 @@ connectMongoDB("mongodb://127.0.0.1:27017/Du_An_Tot_Nghiep");
 //chạy seeder data product
 // seedProducts();
 
-app.use("/", router);
+app.use("/api", router);
 
 if (import.meta.env.PROD) app.listen(3000);
 

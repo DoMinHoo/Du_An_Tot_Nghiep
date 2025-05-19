@@ -12,6 +12,7 @@ router.use("/promotions", promotionRouter);
 router.use("/products", productRouter);
 router.use("/categories", categoryRouter);
 router.use('/cart', cartRouter);
+router.use("/auth", authRouter);
 // router.use("/orders", productRouter);
 
 

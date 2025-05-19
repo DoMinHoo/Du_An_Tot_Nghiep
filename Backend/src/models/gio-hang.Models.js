@@ -1,6 +1,6 @@
-    const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-    const cartItemSchema = new mongoose.Schema({
+const cartItemSchema = mongoose.Schema({
     product_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
@@ -12,9 +12,9 @@
         min: 1,
     },
     added_price: Number, // giá tại thời điểm thêm vào
-    }, { _id: false });
+}, { _id: false });
 
-    const cartSchema = new mongoose.Schema({
+const cartSchema = new mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Users",
@@ -25,8 +25,10 @@
         type: [cartItemSchema],
         default: [],
     },
-    }, {
+}, {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
-    });
+});
 
-    module.exports = mongoose.model("Cart", cartSchema);
+const cartModel = mongoose.model("Cart", cartSchema);
+
+export default cartModel;

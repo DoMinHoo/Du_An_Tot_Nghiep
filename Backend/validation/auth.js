@@ -18,4 +18,4 @@ const registerSchema = Joi.object({
   role: Joi.string().valid("admin", "user").optional(),
 });
 
-export { registerSchema };
+export default registerSchema;

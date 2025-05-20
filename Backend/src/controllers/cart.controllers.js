@@ -4,12 +4,13 @@ import Product from '../models/productModel';
 // Thêm sản phẩm vào giỏ
 export const addToCart = async (req, res) => {
     const { product_id, quantity } = req.body;
-    const userId = req.user._id;
+    const userId = req.user_id;
 
     try {
         const product = await Product.findById(product_id);
         if (!product || product.stock < quantity) {
             return res.status(400).json({ message: "Sản phẩm không hợp lệ hoặc hết hàng" });
+
         }
         if (quantity <= 0) return res.status(400).json({ message: "Số lượng phải lớn hơn 0" });
 

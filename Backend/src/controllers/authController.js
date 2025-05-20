@@ -1,7 +1,7 @@
 import userModel from "../models/userModel";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { registerSchema } from "../validation/auth";
+import registerSchema from "../../validation/auth";
 
 async function register(req, res) {
   try {

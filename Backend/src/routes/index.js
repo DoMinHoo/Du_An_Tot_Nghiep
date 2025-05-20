@@ -5,7 +5,7 @@ import productRouter from "./productRouter";
 import promotionRouter from "./promotion_routers";
 import categoryRouter from "./category.routes.js";
 import cartRouter from "./cart.routes.js";
-
+import authRouter from "./authRouter.js";
 const router = Router();
 
 router.use("/promotions", promotionRouter);

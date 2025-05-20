@@ -5,8 +5,7 @@ import registerSchema from "../../validation/auth";
 
 async function register(req, res) {
   try {
-    const { email, password, first_name, last_name, phone, address, role } =
-      req.body;
+    const { email, password, first_name, last_name, phone, address, role } = req.body;
 
     // Kiểm tra dữ liệu hợp lệ
     const { error } = registerSchema.validate(req.body, {
@@ -49,11 +48,9 @@ async function register(req, res) {
 async function login(req, res) {
   try {
     const { email, password } = req.body;
-    //Kiem tra du lieu hop le
+    // Kiểm tra dữ liệu hợp lệ
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({ message: "Email and Password is Required" });
+      return res.status(400).json({ message: "Email and Password is Required" });
     }
     if (password.length < 6) {
       return res.status(400).json({ message: "Password min 6 character" });
@@ -70,10 +67,8 @@ async function login(req, res) {
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    // Tạo token JWT
-    const token = jwt.sign({ id: user._id }, "luong", {
-      expiresIn: "1w",
-    });
+    // Tạo token JWT với khóa bí mật thống nhất
+    const token = jwt.sign({ id: user._id }, "duantotnghiep", { expiresIn: "1w" });
     console.log(token);
 
     // remove password response

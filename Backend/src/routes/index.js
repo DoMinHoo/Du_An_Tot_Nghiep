@@ -8,6 +8,7 @@ import categoryRouter from "./category.routes.js";
 import cartRouter from "./cart.routes.js";
 import authRouter from "./authRouter.js";
 import paymentRouter from "./paymentRouter.js";
+import couponRouter from "./couponRouter.js";
 
 
 const router = Router();
@@ -19,6 +20,7 @@ router.use('/cart', cartRouter);
 router.use("/auth", authRouter);
 router.use("/orders", orderRouter);
 router.use("/payments", paymentRouter);
+router.use("/coupons", couponRouter);
 
 
 export default router;

@@ -2,103 +2,170 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 
-* These styles were added to improve the appearance of the example pages.
-* It is safe to delete them, and they are not intended to be used by Refine components.
-*/
 @layer base {
-  input {
-    @apply border border-gray-300 rounded-sm;
+  :root {
+    --primary: #3182ce; /* Blue for titles and active states */
+    --secondary: #f5f5f5; /* Light gray for sidebar and cards */
+    --text: #1a202c; /* Dark gray for text */
+    --bg: #ffffff; /* White background */
+    --red: #e53e3e; /* Red for Admin title and button */
+    --blue-600: #2563eb; /* Custom blue for icons */
+    --green-600: #48bb78; /* Custom green for icons */
+    --purple-600: #9f7aea; /* Custom purple for icons */
+    --orange-600: #f6ad55; /* Custom orange for icons */
   }
 
-  input[type="submit"] {
-    @apply bg-[#EFEFEF];
-  }
-
-  button {
-    @apply border border-gray-300 px-2 rounded-sm bg-[#EFEFEF];
-  }
-
-  h1 {
-    @apply text-2xl font-bold my-6;
-  }
-
-  ul {
-    @apply list-disc my-4;
-  }
-
-  a {
-    @apply text-blue-700 underline;
-  }
-
-  label {
-    @apply text-sm font-medium;
+  [data-theme="dark"] {
+    --primary: #63b3ed; /* Lighter blue for dark mode */
+    --secondary: #2d3748; /* Dark gray for sidebar and cards */
+    --text: #e2e8f0; /* Light gray for text */
+    --bg: #1a202c; /* Dark background */
+    --red: #fc8181; /* Lighter red for dark mode */
+    --blue-600: #4299e1; /* Lighter blue for dark mode */
+    --green-600: #68d391; /* Lighter green for dark mode */
+    --purple-600: #b794f4; /* Lighter purple for dark mode */
+    --orange-600: #f6ad55; /* Keep orange consistent */
   }
 
   body {
-    @apply m-0 bg-white;
+    @apply m-0 bg-[var(--bg)] text-[var(--text)] font-sans transition-colors duration-300;
+  }
+
+  input {
+    @apply border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--primary)];
+  }
+
+  button {
+    @apply border border-gray-300 rounded-md px-4 py-2 bg-[var(--secondary)] hover:bg-gray-200 transition-colors;
+  }
+
+  h1 {
+    @apply text-3xl font-bold my-6 text-[var(--primary)];
+  }
+
+  ul {
+    @apply list-none my-4;
+  }
+
+  a {
+    @apply text-[var(--text)] no-underline hover:underline transition-colors;
   }
 
   table {
-    @apply border border-black border-collapse;
+    @apply w-full border border-gray-300 rounded-md overflow-hidden;
   }
 
   table th,
   table td {
-    @apply m-0 p-2 border-b border-r border-black;
+    @apply p-3 border-b border-gray-200 text-left;
+  }
+}
+
+@layer components {
+  .sidebar {
+    @apply w-64 h-screen bg-[var(--secondary)] shadow-md border-r fixed top-0 bottom-0 overflow-y-auto transition-transform duration-300 z-50 text-[var(--text)];
   }
 
-  table tr:last-child td {
-    @apply border-b-0;
+  .sidebar .sidebar-title {
+    @apply text-center py-4 border-b border-gray-200;
   }
 
-  table th:last-child,
-  table td:last-child {
-    @apply border-r-0;
+  .sidebar .sidebar-title h2 {
+    @apply text-lg font-bold text-[var(--red)] uppercase tracking-wide;
   }
 
-  .layout {
-    @apply flex gap-4;
+  .sidebar nav ul {
+    @apply space-y-2 px-4 text-sm;
   }
 
-  @media (max-width: 751px) {
-    .layout {
-      @apply block;
-    }
+  .sidebar nav a {
+    @apply flex items-center gap-3 p-2 rounded no-underline transition-colors;
   }
 
-  .layout .content {
-    @apply flex flex-col flex-grow;
+  .sidebar nav a:hover {
+    @apply bg-gray-100;
+  }
+
+  .sidebar nav a.active {
+    @apply bg-[var(--primary)] text-white;
+  }
+
+  .content {
+    @apply flex-1 md:ml-64 p-6 bg-[var(--bg)] transition-all duration-300;
   }
 
   .breadcrumb {
-    @apply flex gap-6 p-2 px-4 border-b border-gray-300;
-    list-style-type: "/ ";
+    @apply flex items-center gap-4 p-4 bg-[var(--secondary)] rounded-md mb-6 sticky top-0 z-10 shadow-sm text-sm text-[var(--text)];
+    list-style-type: none;
+  }
+
+  .breadcrumb li {
+    @apply flex items-center;
   }
 
   .breadcrumb a {
-    @apply text-blue-700 no-underline;
+    @apply text-[var(--primary)] no-underline hover:underline capitalize;
   }
 
-  .menu {
-    @apply flex-shrink-0 p-2 pr-4 border-r border-gray-300;
+  .breadcrumb span {
+    @apply mx-2 text-[var(--text)];
   }
 
-  .menu a {
-    @apply text-black;
+  .dashboard-header {
+    @apply flex items-center gap-3 mb-6;
   }
 
-  .menu .active {
-    @apply font-bold;
+  .dashboard-header h1 {
+    @apply text-3xl font-semibold text-[var(--primary)];
   }
 
-  @media (max-width: 751px) {
-    .menu {
-      @apply border-r-0 border-b border-gray-300;
+  .dashboard-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6;
+  }
+
+  .dashboard-card {
+    @apply bg-[var(--secondary)] rounded-2xl shadow-md p-5 flex items-center justify-between hover:shadow-lg transition-shadow duration-300 border border-gray-200;
+  }
+
+  .dashboard-card .label {
+    @apply text-gray-500 text-sm;
+  }
+
+  .dashboard-card .value {
+    @apply text-2xl font-bold text-[var(--text)];
+  }
+
+  .dashboard-card .icon {
+    @apply w-12 h-12 rounded-full flex items-center justify-center;
+  }
+
+  .dashboard-card .icon-blue {
+    @apply text-[var(--blue-600)] bg-blue-100;
+  }
+
+  .dashboard-card .icon-green {
+    @apply text-[var(--green-600)] bg-green-100;
+  }
+
+  .dashboard-card .icon-purple {
+    @apply text-[var(--purple-600)] bg-purple-100;
+  }
+
+  .dashboard-card .icon-orange {
+    @apply text-[var(--orange-600)] bg-orange-100;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      @apply -translate-x-full;
     }
-  }
 
-  .menu ul {
-    @apply pl-4;
+    .sidebar.active {
+      @apply translate-x-0;
+    }
+
+    .content {
+      @apply ml-0;
+    }
   }
 }

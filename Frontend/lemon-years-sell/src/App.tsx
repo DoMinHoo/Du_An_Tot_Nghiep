@@ -1,45 +1,73 @@
-import { GitHubBanner, Refine, WelcomePage } from "@refinedev/core";
-import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
-import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
+// import { Refine, useGetIdentity } from '@refinedev/core';
+// import { dataProvider } from '@refinedev/simple-rest';
+// import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+// import { AdminApp } from './pages/admin/AdminApp';
+// // import { ClientApp } from './ClientApp';
+// import { authProvider } from './authProvider';
 
-import routerBindings, {
-  DocumentTitleHandler,
-  UnsavedChangesNotifier,
-} from "@refinedev/react-router";
-import dataProvider from "@refinedev/simple-rest";
-import { BrowserRouter, Route, Routes } from "react-router";
-import "./App.css";
-import { authProvider } from "./authProvider";
+// interface UserIdentity {
+//   role: 'admin' | 'client';
+// }
 
-function App() {
+// export const App: React.FC = () => {
+//   const { data: identity, isLoading } = useGetIdentity<UserIdentity>();
+
+//   if (isLoading) {
+//     return <div>Đang tải...</div>;
+//   }
+
+//   return (
+//     <BrowserRouter>
+//       <Refine
+//         dataProvider={dataProvider('https://api.example.com')} // API thực tế
+//         authProvider={authProvider}
+//       >
+//         <Routes>
+//           {identity?.role === 'admin' && (
+//             <Route path="/admin/*" element={<AdminApp />} />
+//           )}
+//           {/* {identity?.role === 'client' && (
+//             // <Route path="/client/*" element={<ClientApp />} />
+//           )} */}
+//           <Route path="*" element={<Navigate to="/login" replace />} />
+//         </Routes>
+//       </Refine>
+//     </BrowserRouter>
+//   );
+// };
+// src/pages/App.tsx
+import simpleRestDataProvider from '@refinedev/simple-rest'; // ✅ sửa chỗ này
+import { Refine, useGetIdentity } from '@refinedev/core';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AdminApp } from './pages/admin/AdminApp';
+import { authProvider } from './authProvider';
+
+// interface UserIdentity {
+//   role: 'admin' | 'client';
+// }
+
+export const App: React.FC = () => {
+  // const { data: identity, isLoading } = useGetIdentity<UserIdentity>();
+
+  // if (isLoading) {
+  //   return <div>Đang tải...</div>;
+  // }
+
   return (
     <BrowserRouter>
-      <GitHubBanner />
-      <RefineKbarProvider>
-        <DevtoolsProvider>
-          <Refine
-            dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
-            routerProvider={routerBindings}
-            authProvider={authProvider}
-            options={{
-              syncWithLocation: true,
-              warnWhenUnsavedChanges: true,
-              useNewQueryKeys: true,
-              projectId: "Xzr80P-THADY0-s4txqD",
-            }}
-          >
-            <Routes>
-              <Route index element={<WelcomePage />} />
-            </Routes>
-            <RefineKbar />
-            <UnsavedChangesNotifier />
-            <DocumentTitleHandler />
-          </Refine>
-          <DevtoolsPanel />
-        </DevtoolsProvider>
-      </RefineKbarProvider>
+      {/* <Refine
+        dataProvider={simpleRestDataProvider('https://api.example.com')} // ✅ sử dụng biến
+        authProvider={authProvider}
+      > */}
+      <Routes>
+        {/* {identity?.role === 'admin' && ( */}
+        <Route path="/admin/*" element={<AdminApp />} />
+        {/* )} */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+      {/* </Refine> */}
     </BrowserRouter>
   );
-}
+};
 
 export default App;
